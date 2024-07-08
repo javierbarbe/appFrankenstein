@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { PokeService, PokeType, PokemonFromType, Result, opcionesIDs } from 'poke-service-lib';
-import { PokemonService as PokemonServiceOriginal } from 'pokemon-lib';
 import { Observable, map, tap } from 'rxjs';
 import { PokemonElement, PokemonFromType as PokemonByType } from 'tabla-lib/lib/shared/models/poketypo.interface';
 import { GeneradorUrlService } from '../generador-url.service';
@@ -14,7 +13,6 @@ export class PrincipalComponent implements OnInit {
 
   //#region PROPERTIES
   pokeServiceBasadoEnIDs = inject(PokeService)
-  pokeServiceOriginal = inject(PokemonServiceOriginal);
   generadorUrl = inject(GeneradorUrlService)
   private _listaPokemons: any[] = [];
   pokeTypes$: Observable<PokeType> = new Observable();
@@ -33,9 +31,7 @@ export class PrincipalComponent implements OnInit {
 
   //#region LIFECYCLE
   ngOnInit(): void {
-    this.pokeServiceOriginal.getData(this.pokeServiceOriginal.urlPokemon).subscribe(pikachu => {
-      console.log('pikachu data', pikachu)
-    })
+   
     const urlTipos = this.generadorUrl.buildEndpointFromComponentID('selectTipoPokemon');
     this.pokeTypes$ = this.pokeServiceBasadoEnIDs.getDataFromID2<PokeType>(urlTipos)
     this.pokeTypes$
@@ -58,7 +54,7 @@ export class PrincipalComponent implements OnInit {
   }
   //#endregion
 
-  //#region EVENTS FROM CHILDREN
+  //#region EVENTS FROM COMPONENTES DE LA IMPORTADOS COMO LIBRERÍAS
   cambioOpcionCombo(tipoElegido: string) {
     this.tipoElegido = tipoElegido;
     console.log('tipoElegido:', tipoElegido)
@@ -91,6 +87,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   clickEnPokemon(pokemon: Result) {
+    // A EJECUTAR CUANDO SE HAGA CLICK EN UNA FILA
     console.log(pokemon)
     const infoPokemon = this.generadorUrl.buildEndpointFromComponentID("pokemonInfo")
     infoPokemon.url += '/' + pokemon.name;
