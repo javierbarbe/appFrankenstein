@@ -1,0 +1,15 @@
+<p>COMPONENTE CONTENEDOR DE COMPONENTES LIBRERIA </p>
+<div class="contenedorBotones">
+
+    <app-selector [tiposPokemon]="listaTipos" (tipoPokemonElegido)="cambioOpcionCombo($event)"></app-selector>
+    <div class="contenedorBotonIndividual">
+        <button mat-button (click)="buscarPokemonPorTipo()" color="primary" style="border: solid 2px red;"> buscar pokemons por tipo</button>
+    </div>
+</div>
+
+<lib-tabla [displayedColumns]="['name', 'url']" [filasTabla]="listaPokemon" nombre="pokemon"
+    *ngIf="listaPokemon.length>0" (clickEnFila)="clickEnPokemon($event)">
+</lib-tabla>
+<div class="error" *ngIf="error">
+    {{error.message}}
+</div>

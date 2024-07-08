@@ -1,0 +1,33 @@
+.noShadow,
+.noShadow:hover {
+    box-shadow: none !important;
+  
+}
+
+.contenedorBotones {
+    display: grid;
+    grid-auto-flow: column;
+    /* border: solid 2px blue; */
+    justify-items: stretch;
+}
+
+.contenedorBotonIndividual{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    /* border: 2px solid red; */
+}
+
+.error{
+    border-radius: 5px;
+    background-color: coral;
+    border: solid 2px black;
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+}
+
+.d-flex{
+    display: flex;
+}
